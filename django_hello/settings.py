@@ -25,7 +25,8 @@ SECRET_KEY = '12345'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']] if 'WEBSITE_HOSTNAME' in os.environ else []
+ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']
+                 ] if 'WEBSITE_HOSTNAME' in os.environ else []
 
 
 # Application definition
@@ -74,14 +75,32 @@ WSGI_APPLICATION = 'django_hello.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-"""
-DATABASES = {    
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }    
+# """
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+# """
+
+# Database
+DB_NAME = "summithill"
+DB_USER = "postgres"
+DB_SERVER = ""
+DB_PASSWORD = ""
+
+DATABASES = {
+    "default": {
+        # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": DB_NAME,
+        "USER": os.environ.get("DB_1_ENV_POSTGRES_USER", DB_USER),
+        "PASSWORD": os.environ.get("DB_1_ENV_POSTGRES_PASSWORD", DB_PASSWORD),
+        "HOST": os.environ.get("DB_1_PORT_5432_TCP_ADDR", DB_SERVER),
+        "PORT": os.environ.get("DB_1_PORT_5432_TCP_PORT", "5432"),
+    }
 }
-"""
 
 
 # Password validation
